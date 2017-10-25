@@ -4,7 +4,7 @@
 -- Summary: When I see these in code, they make me pause and go
 -- hmmm...
 --
--- Written By: Andy Yun
+-- Written By: Andy Yun 
 -------------------------------------------------------------------*/
 USE AutoDealershipDemo;
 GO
@@ -74,6 +74,25 @@ GO
 
 
 
+-- What version of SQL Server are you on?
+-- Running an older version of SQL Server?
+SELECT @@VERSION;
+
+
+
+
+-----
+-- 2017   - 140		-- 2016   - 130
+-- 2014   - 120		-- 2012   - 110
+-- 2008R2 - 100
+SELECT name, compatibility_level
+FROM sys.databases
+WHERE name = 'AutoDealershipDemo';
+
+
+-- Drop down to 2008R2 & repeat above
+ALTER DATABASE AutoDealershipDemo
+SET COMPATIBILITY_LEVEL = 100;
 
 
 
@@ -135,7 +154,12 @@ GO
 -- STOP
 
 
+
+
+-- RESET
 -- Turn off Actual Execution Plan
+ALTER DATABASE AutoDealershipDemo
+SET COMPATIBILITY_LEVEL = 140;
 
 
 
@@ -160,12 +184,12 @@ GO
 
 
 
--- What's the difference?
+-- What's the cost difference?
 /*
 SET STATISTICS TIME ON
 */
 
--- Run with & without ORDER BY
+-- Re-run above with ORDER BY & below without ORDER BY
 SELECT 
 	Inventory.VIN,
 	Inventory.InvoicePrice,
@@ -177,7 +201,7 @@ INNER JOIN dbo.SalesHistory
 GO
 
 
--- Where's this data going?
+-- Ever ask where is this data going?
 
 
 
@@ -257,7 +281,8 @@ WHERE (
 	TransactionDate    >= '2014-12-01 00:00:000' 
 	AND TransactionDate < '2015-01-01 00:00:000' 
 );
-/*
+/* 
+-- Also correct
 WHERE TransactionDate 
 	BETWEEN '2014-12-01 00:00:00.000' 
 		AND '2014-12-31 23:59:59.997'
@@ -289,10 +314,22 @@ SELECT
 
 -- CAST & CONVERT
 SELECT 
-	CAST('This is a much longer string which has of 57 characters.' AS VARCHAR) AS Casted,
-	LEN(CAST('This is a much longer string which has of 57 characters.' AS VARCHAR)) AS CastedLength,
-	CONVERT(VARCHAR, 'This is a much longer string which has of 57 characters.') AS Converted,
-	LEN(CONVERT(VARCHAR, 'This is a much longer string which has of 57 characters.')) AS ConvertedLength;
+	CAST('This is a much longer string which has of 57 characters.' 
+		AS VARCHAR) 
+	AS Casted,
+	LEN(CAST('This is a much longer string which has of 57 characters.' 
+			AS VARCHAR)
+		) 
+	AS CastedLength,
+	CONVERT(
+		VARCHAR, 
+		'This is a much longer string which has of 57 characters.'
+	) AS Converted,
+	LEN(CONVERT(
+			VARCHAR, 
+			'This is a much longer string which has of 57 characters.'
+		)
+	) AS ConvertedLength;
 
 
 
@@ -313,6 +350,10 @@ CREATE TABLE #tmpDeclarationsMatter (
 
 
 
+
+
+
+
 -- Insert a value?
 INSERT INTO #tmpDeclarationsMatter (ColOne) VALUES ('Sadie');
 
@@ -328,7 +369,7 @@ INSERT INTO #tmpDeclarationsMatter (ColTwo) VALUES (DEFAULT);
 SELECT * 
 FROM #tmpDeclarationsMatter;
 
--- sp_help
+-- Reference sp_help
 
 
 
@@ -355,7 +396,7 @@ SELECT
 FROM dbo.Inventory;
 
 
---
+-- Add & re-run
 SET STATISTICS IO ON;
 
 

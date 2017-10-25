@@ -37,6 +37,10 @@ GO
 
 
 
+
+
+
+
 INSERT INTO #tmpDestination_One(VIN)
 OUTPUT inserted.RecID, inserted.VIN			-- What's this?!
 INTO #tmpDestination_Two(InsertedRecID , VIN)
@@ -46,11 +50,17 @@ FROM dbo.Inventory;
 
 
 
+
+
+
+
 SELECT RecID, VIN
 FROM #tmpDestination_One;
 
 SELECT RecID, InsertedRecID, VIN
 FROM #tmpDestination_Two;
+
+
 
 
 -- What is OUTPUT & inserted?
@@ -74,6 +84,8 @@ FROM dbo.Inventory
 INNER JOIN dbo.SalesHistory
 	ON Inventory.InventoryID = SalesHistory.InventoryID
 ORDER BY Inventory.InventoryID
+
+
 
 
 -- Fun with VALUES()
@@ -105,14 +117,17 @@ ORDER BY Inventory.InventoryID;
 
 
 -- Didn't you say don't RBAR?
+-- What happened?  Show Actual Execution Plan
 SET STATISTICS IO ON;
 
 
 
 
--- What happened?  Show Actual Execution Plan
 
 
+
+
+-- RESET
 -- Turn off Actual Execution Plan
 SET STATISTICS IO OFF;
 
@@ -140,10 +155,18 @@ FROM dbo.Inventory
 
 
 
+
+
+
+
 -- FOR XML PATH('')
 SELECT TOP 5 VIN
 FROM dbo.Inventory
 FOR XML PATH('');
+
+
+
+
 
 
 
@@ -176,6 +199,8 @@ SELECT
 	) AS Column2CSVString;
 
 
+
+
 -- Problem: How do I know what the actual length of my string is?
 
 
@@ -200,6 +225,10 @@ SELECT
 		5,				-- number of characters to replace
 		'-12345-'		-- replacement string
 	) AS StuffedString;
+
+
+
+
 
 
 
@@ -238,6 +267,7 @@ SELECT
 
 
 -- Grouped?!
+-- SETUP
 IF OBJECT_ID('tempdb.dbo.#tmpVehicleList','U') IS NOT NULL
 	DROP TABLE #tmpVehicleList;
 
@@ -271,6 +301,7 @@ SELECT
 	ModelName, 
 	ColorName
 FROM #tmpVehicleList;
+-- STOP
 
 
 

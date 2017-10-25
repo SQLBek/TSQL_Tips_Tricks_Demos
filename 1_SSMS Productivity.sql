@@ -49,6 +49,12 @@ WHERE objects.object_id = OBJECT_ID(N'dbo.SalesHistory')
 ORDER BY columns.column_id;
 
 
+
+
+
+
+
+
 -- OR?
 
 
@@ -59,6 +65,12 @@ ORDER BY columns.column_id;
 
 
 -- GUI?
+
+
+
+
+
+
 
 
 -- OR?
@@ -72,6 +84,12 @@ ORDER BY columns.column_id;
 
 -- sp_help
 EXEC sp_help 'dbo.SalesHistory';
+
+
+
+
+
+
 
 
 -- OR?
@@ -101,13 +119,11 @@ SELECT TOP 1000 *
 INTO #myTempTable
 FROM dbo.vw_AllSoldInventory
 
-
 -- SELECT * is bad, m'kay?
 -- Let's refactor. Need a list of columns.
 
 
 -- sp_help?
--- GUI?
 
 
 
@@ -118,8 +134,24 @@ EXEC sp_help '#myTempTable'
 
 
 
+
+
+
+
 -- Adjusted
 EXEC tempdb..sp_help '#myTempTable'
+
+
+-- Must add commas top copied column list! :-(
+
+
+
+
+
+
+
+
+-- GUI?
 
 
 
@@ -137,7 +169,13 @@ IF OBJECT_ID('tempdb.dbo.#myTempTable') IS NOT NULL
 
 -----
 -- Example #3 - Repeat Yourself
--- Spin up sample workload
+-- Spin up sample workload in a new window
+/*
+EXEC msdb.dbo.sp_start_job 'AutoDealership - sp_GetAllInventory_ByRandModel_MethodA'
+EXEC msdb.dbo.sp_start_job 'AutoDealership - sp_GetInventory_ByRandColor'
+EXEC msdb.dbo.sp_start_job 'AutoDealership - sp_GetUnsoldMakeModel_GrpByMonth'
+*/
+
 EXEC sp_whoisactive
 
 
@@ -152,7 +190,7 @@ EXEC sp_whoisactive
 
 -- GO, GO, GO!
 EXEC sp_whoisactive
-GO
+GO 
 
 
 
@@ -163,7 +201,7 @@ GO
 
 -- Want to wait?
 EXEC sp_whoisactive
-WAITFOR DELAY '00:00:02' 
+WAITFOR DELAY '00:00:01' 
 GO 3
 
 
