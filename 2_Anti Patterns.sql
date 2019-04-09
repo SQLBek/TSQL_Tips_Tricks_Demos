@@ -201,6 +201,8 @@ INNER JOIN dbo.SalesHistory
 GO
 
 
+
+
 -- Ever ask where is this data going?
 
 
@@ -380,7 +382,9 @@ FROM #tmpDeclarationsMatter;
 
 -----
 -- Example #5 - SELECT that SELECT!
+-- Turn on Actual Execution Plan
 SET STATISTICS TIME ON;
+SET STATISTICS IO ON;
 
 SELECT 
 	Inventory.InventoryID,
@@ -396,8 +400,7 @@ SELECT
 FROM dbo.Inventory;
 
 
--- Add & re-run
-SET STATISTICS IO ON;
+
 
 
 

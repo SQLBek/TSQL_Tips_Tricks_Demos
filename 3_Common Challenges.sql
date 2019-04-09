@@ -43,7 +43,7 @@ GO
 
 INSERT INTO #tmpDestination_One(VIN)
 OUTPUT inserted.RecID, inserted.VIN			-- What's this?!
-INTO #tmpDestination_Two(InsertedRecID , VIN)
+INTO #tmpDestination_Two(InsertedRecID, VIN)
 SELECT TOP 1000 VIN
 FROM dbo.Inventory;
 

@@ -6,6 +6,7 @@
 -- Written By: Andy Yun
 -------------------------------------------------------------------*/
 USE AutoDealershipDemo;
+GO
 
 
 
@@ -142,7 +143,7 @@ EXEC sp_help '#myTempTable'
 EXEC tempdb..sp_help '#myTempTable'
 
 
--- Must add commas top copied column list! :-(
+-- Must add commas to copied column list! :-(
 
 
 
@@ -169,7 +170,7 @@ IF OBJECT_ID('tempdb.dbo.#myTempTable') IS NOT NULL
 
 -----
 -- Example #3 - Repeat Yourself
--- Spin up sample workload in a new window
+-- Spin up sample workload
 /*
 EXEC msdb.dbo.sp_start_job 'AutoDealership - sp_GetAllInventory_ByRandModel_MethodA'
 EXEC msdb.dbo.sp_start_job 'AutoDealership - sp_GetInventory_ByRandColor'
