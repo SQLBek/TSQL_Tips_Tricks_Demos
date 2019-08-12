@@ -72,7 +72,7 @@ GO
 
 
 
--- Forget the Drop! (SS 2017)
+-- Forget the Drop! (SS 2016 SP1)
 CREATE OR ALTER PROCEDURE dbo.NewStoredProc
 AS 
 BEGIN

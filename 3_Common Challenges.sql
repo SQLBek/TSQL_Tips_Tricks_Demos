@@ -319,12 +319,14 @@ SELECT
 				',' + ColorCSVList.ColorName 
 			FROM #tmpVehicleList AS ColorCSVList
 			WHERE ModelList.ModelName = ColorCSVList.ModelName	-- Like a SELF JOIN
+			-- Add ORDER BY!
+			ORDER BY ColorCSVList.ColorName DESC
 			FOR XML PATH('')
 		), 1, 1, ''
 	) AS Column2CSVString  
 FROM #tmpVehicleList AS ModelList
 GROUP BY ModelList.ModelName
-
+-- Add ORDER BY!
 
 
 
